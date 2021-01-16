@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-
+using System.Linq;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System.Reflection;
 
 namespace NbaStats.Data.Repositories
 {
@@ -26,12 +28,12 @@ namespace NbaStats.Data.Repositories
         /// <summary>
         /// Base Method for Adding Records to the DB Context.
         /// </summary>
-        /// <typeparam name="T">Type Parameter</typeparam>
+        /// <typeparam name="TEntity">Type Parameter</typeparam>
         /// <param name="entity">Entity to Add</param>
         /// <returns>Resulting Entity</returns>
-        protected virtual T Add<T>(T entity) where T : class
+        protected virtual TEntity Add<TEntity>(TEntity entity) where TEntity : class
         {
-            EntityEntry<T> entry = ctx.Set<T>().Add(entity);
+            EntityEntry<TEntity> entry = ctx.Set<TEntity>().Add(entity);
             ctx.SaveChanges();
             return entry.Entity;
         }
@@ -39,18 +41,41 @@ namespace NbaStats.Data.Repositories
         /// <summary>
         /// Base Method for Updating an Item in the DB Context.
         /// </summary>
-        /// <typeparam name="T">Type Parameter</typeparam>
+        /// <typeparam name="TEntity">Type Parameter</typeparam>
         /// <param name="entity">Entity to Update</param>
         /// <returns>Resulting Entity</returns>
-        protected virtual T Update<T>(T entity) where T : class
+        protected virtual TEntity Update<TEntity>(TEntity entity) where TEntity : class
         {
-            var original = ctx.Entry(entity);
-            if (!entity.Equals(original.Entity))
+
+            var entry = ctx.Entry(entity);
+            IKey key = entry.Metadata.FindPrimaryKey();
+            List<object> keyValues = new List<object>();
+
+            foreach(IProperty prop in key.Properties)
+            {
+                PropertyInfo pi = prop.PropertyInfo;
+                keyValues.Add(pi.GetValue(entity));
+            }
+
+            var original = ctx.Find<TEntity>(keyValues.ToArray());
+
+            if (!entity.Equals(original))
             {
                 ctx.Entry(original).CurrentValues.SetValues(entity);
                 ctx.SaveChanges();
             }
             return ctx.Entry(entity).Entity;
         }      
+
+        /// <summary>
+        /// Base Method to Remove an Item in the Db Context.
+        /// </summary>
+        /// <typeparam name="TEntity">Type Parameter</typeparam>
+        /// <param name="entity">Entity to Remove</param>
+        protected virtual void Delete<TEntity>(TEntity entity) where TEntity : class
+        {
+            ctx.Set<TEntity>().Remove(entity);
+            ctx.SaveChanges();
+        }
     }
 }

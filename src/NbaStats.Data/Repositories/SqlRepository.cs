@@ -221,42 +221,42 @@ namespace NbaStats.Data.Repositories
 
         public Injury Update(Injury injury)
         {
-            throw new NotImplementedException();
+            return base.Update(injury);
         }
 
         public Player Update(Player player)
         {
-            throw new NotImplementedException();
+            return base.Update(player);
         }
 
         public PlayerStat Update(PlayerStat playerStat)
         {
-            throw new NotImplementedException();
+            return base.Update(playerStat);
         }
 
         public RosterEntry Update(RosterEntry rosterEntry)
         {
-            throw new NotImplementedException();
+            return base.Update(rosterEntry);
         }
 
         public ScheduleEntry Update(ScheduleEntry scheduleEntry)
         {
-            throw new NotImplementedException();
+            return base.Update(scheduleEntry);
         }
 
         public Team Update(Team team)
         {
-            throw new NotImplementedException();
+            return base.Update(team);
         }
 
         public TeamStat Update(TeamStat teamStat)
         {
-            throw new NotImplementedException();
+            return base.Update(teamStat);
         }
 
         public Transaction Update(Transaction transaction)
         {
-            throw new NotImplementedException();
+            return base.Update(transaction);
         }
     }
 }
