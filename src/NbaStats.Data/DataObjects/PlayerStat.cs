@@ -14,6 +14,7 @@ namespace NbaStats.Data.DataObjects
         public double FGPercentage { get; set; }
         public int ThreeTaken { get; set; }
         public int ThreeCompleted { get; set; }
+        public double ThreePercentage { get; set; }
         public int OffensiveRebound { get; set; }
         public int DefensiveRebound { get; set; }
         public int Assists { get; set; }
