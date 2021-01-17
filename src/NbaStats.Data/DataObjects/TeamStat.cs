@@ -8,6 +8,7 @@ namespace NbaStats.Data.DataObjects
     {
         public long Id { get; set; }
         public int TeamId { get; set; }
+        public long ScheduleId { get; set; }
         public int OpponentId { get; set; }
         public int FGTaken { get; set; }
         public int FGCompleted { get; set; }
