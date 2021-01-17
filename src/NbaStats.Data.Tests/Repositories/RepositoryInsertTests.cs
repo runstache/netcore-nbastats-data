@@ -105,6 +105,7 @@ namespace NbaStats.Data.Tests.Repositories
             {
                 Id = 1,
                 PlayerId = 1,
+                ScheduleId = 4,
                 Assists = 5,
                 PointDifferential = -12,
                 Points = 25,
@@ -174,6 +175,7 @@ namespace NbaStats.Data.Tests.Repositories
                 Id = 1,
                 OpponentId = 3,
                 TeamId = 2,
+                ScheduleId = 4,
                 Assits = 3,
                 Blocks = 6,
                 DefensiveRebound = 15,

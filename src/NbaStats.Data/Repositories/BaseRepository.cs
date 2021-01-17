@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Reflection;
 
@@ -76,6 +77,17 @@ namespace NbaStats.Data.Repositories
         {
             ctx.Set<TEntity>().Remove(entity);
             ctx.SaveChanges();
+        }
+
+        /// <summary>
+        /// Executes a Given Query on the DB Context Based on a Provided Linq Expression.
+        /// </summary>
+        /// <typeparam name="TEntity">Type Parameter</typeparam>
+        /// <param name="expression">Linq Expression</param>
+        /// <returns></returns>
+        protected virtual IQueryable<TEntity> Query<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class
+        {
+            return ctx.Set<TEntity>().Where(expression).AsQueryable();
         }
     }
 }

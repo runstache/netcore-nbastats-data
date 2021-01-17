@@ -3,6 +3,7 @@ using NbaStats.Data.DataObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace NbaStats.Data.Repositories
@@ -76,42 +77,50 @@ namespace NbaStats.Data.Repositories
 
         public bool Exists(Injury injury)
         {
-            throw new NotImplementedException();
+            Expression<Func<Injury, bool>> doesExist = c => c.PlayerId == injury.PlayerId && c.ScratchDate == injury.ScratchDate;
+            return Query(doesExist).Count() > 0;
         }
 
         public bool Exists(Player player)
         {
-            throw new NotImplementedException();
+            Expression<Func<Player, bool>> doesExist = c => c.PlayerCode == player.PlayerCode;
+            return Query(doesExist).Count() > 0;
         }
 
         public bool Exists(PlayerStat playerStat)
         {
-            throw new NotImplementedException();
+            Expression<Func<PlayerStat, bool>> doesExist = c => c.PlayerId == playerStat.PlayerId && c.ScheduleId == playerStat.ScheduleId;
+            return Query(doesExist).Count() > 0;
         }
 
         public bool Exists(RosterEntry rosterEntry)
         {
-            throw new NotImplementedException();
+            Expression<Func<RosterEntry, bool>> doesExist = c => c.PlayerId == rosterEntry.PlayerId && c.TeamId == rosterEntry.TeamId;
+            return Query(doesExist).Count() > 0;
         }
 
         public bool Exists(ScheduleEntry scheduleEntry)
         {
-            throw new NotImplementedException();
+            Expression<Func<ScheduleEntry, bool>> doesExist = c => c.HomeTeamId == scheduleEntry.HomeTeamId && c.AwayTeamId == scheduleEntry.AwayTeamId && c.GameDate == scheduleEntry.GameDate;
+            return Query(doesExist).Count() > 0;
         }
 
         public bool Exists(Team team)
         {
-            throw new NotImplementedException();
+            Expression<Func<Team, bool>> doesExist = c => c.TeamCode == team.TeamCode;
+            return Query(doesExist).Count() > 0;
         }
 
         public bool Exists(TeamStat teamStat)
         {
-            throw new NotImplementedException();
+            Expression<Func<TeamStat, bool>> doesExist = c => c.TeamId == teamStat.TeamId && c.ScheduleId == teamStat.ScheduleId && c.OpponentId == teamStat.OpponentId;
+            return Query(doesExist).Count() > 0;
         }
 
         public bool Exists(Transaction transaction)
         {
-            throw new NotImplementedException();
+            Expression<Func<Transaction, bool>> doesExist = c => c.PlayerId == transaction.PlayerId && c.NewTeamId == transaction.NewTeamId && c.OldTeamId == transaction.OldTeamId;
+            return Query(doesExist).Count() > 0;
         }
 
         public IQueryable<Injury> GetInjuries()
