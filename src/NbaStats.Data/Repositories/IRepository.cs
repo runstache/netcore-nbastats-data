@@ -203,6 +203,12 @@ namespace NbaStats.Data.Repositories
         Team GetTeam(int id);
 
         /// <summary>
+        /// Retrieves the Teams from the Database.
+        /// </summary>
+        /// <returns>Queryable of Teams</returns>
+        IQueryable<Team> GetTeams();
+
+        /// <summary>
         /// Retrieves a Given Team Stat from the Database.
         /// </summary>
         /// <param name="id">Id</param>
@@ -214,6 +220,20 @@ namespace NbaStats.Data.Repositories
         /// </summary>
         /// <returns>Queryable of Team Stats</returns>
         IQueryable<TeamStat> GetTeamStats();
+
+        /// <summary>
+        /// Retrieves a Given Transaction from the Database.
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>Transaction</returns>
+        Transaction GetTransaction(long id);
+
+        /// <summary>
+        /// Retrieves all of the Transactions from the Database.
+        /// </summary>
+        /// <returns>Queryable of Transactions</returns>
+        IQueryable<Transaction> GetTransactions();
+
 
         #endregion
 

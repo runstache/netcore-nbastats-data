@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
-using NbaStats.Data.Context;
+﻿using NbaStats.Data.Context;
 using NbaStats.Data.DataObjects;
 using NbaStats.Data.Repositories;
+using NUnit.Framework;
+using System;
 using System.Linq;
 
 namespace NbaStats.Data.Tests.Repositories

@@ -125,67 +125,91 @@ namespace NbaStats.Data.Repositories
 
         public IQueryable<Injury> GetInjuries()
         {
-            throw new NotImplementedException();
+            return Context.Injuries;
         }
 
         public Injury GetInjury(long id)
         {
-            throw new NotImplementedException();
+            Expression<Func<Injury, bool>> byId = c => c.Id == id;
+            return base.Query(byId).FirstOrDefault();
+            
         }
 
         public Player GetPlayer(long id)
         {
-            throw new NotImplementedException();
+            Expression<Func<Player, bool>> byId = c => c.Id == id;
+            return base.Query(byId).FirstOrDefault();
         }
 
         public IQueryable<Player> GetPlayers()
         {
-            throw new NotImplementedException();
+            return Context.Players;
         }
 
         public PlayerStat GetPlayerStat(long id)
         {
-            throw new NotImplementedException();
+            Expression<Func<PlayerStat, bool>> byId = c => c.Id == id;
+            return base.Query(byId).FirstOrDefault();
         }
 
         public IQueryable<PlayerStat> GetPlayerStats()
         {
-            throw new NotImplementedException();
+            return Context.PlayerStats;
         }
 
         public IQueryable<RosterEntry> GetRosterEntries()
         {
-            throw new NotImplementedException();
+            return Context.RosterEntries;
         }
 
         public RosterEntry GetRosterEntry(long id)
         {
-            throw new NotImplementedException();
+            Expression<Func<RosterEntry, bool>> byId = c => c.Id == id;
+            return base.Query(byId).FirstOrDefault();
         }
 
         public IQueryable<ScheduleEntry> GetScheduleEntries()
         {
-            throw new NotImplementedException();
+            return Context.ScheduleEntries;
         }
 
         public ScheduleEntry GetScheduleEntry(long id)
         {
-            throw new NotImplementedException();
+            Expression<Func<ScheduleEntry, bool>> byId = c => c.Id == id;
+            return base.Query(byId).FirstOrDefault();
         }
 
         public Team GetTeam(int id)
         {
-            throw new NotImplementedException();
+            Expression<Func<Team, bool>> byId = c => c.Id == id;
+            return base.Query(byId).FirstOrDefault();
+        }
+
+        public IQueryable<Team> GetTeams()
+        {
+            return Context.Teams;
         }
 
         public TeamStat GetTeamStat(long id)
         {
-            throw new NotImplementedException();
+            Expression<Func<TeamStat, bool>> byId = c => c.Id == id;
+            return base.Query(byId).FirstOrDefault();
         }
 
         public IQueryable<TeamStat> GetTeamStats()
         {
-            throw new NotImplementedException();
+            return Context.TeamStats;
+        }
+
+        public Transaction GetTransaction(long id)
+        {
+            Expression<Func<Transaction, bool>> byId = c => c.Id == id;
+            return base.Query(byId).FirstOrDefault();
+        }
+
+        public IQueryable<Transaction> GetTransactions()
+        {
+            return Context.Transactions;
         }
 
         public Injury Insert(Injury injury)

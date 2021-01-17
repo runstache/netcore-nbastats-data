@@ -1,15 +1,17 @@
-﻿using NbaStats.Data.Context;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using NUnit.Framework;
+using NbaStats.Data.Context;
 using NbaStats.Data.DataObjects;
 using NbaStats.Data.Repositories;
-using NUnit.Framework;
-using System;
+using System.Linq;
 
 namespace NbaStats.Data.Tests.Repositories
 {
     [TestFixture]
-    public class RepositoryExistsTests
+    public class RepositoryRetrievalTests
     {
-
         private IRepository repo;
         private SqlContext ctx;
 
@@ -23,6 +25,7 @@ namespace NbaStats.Data.Tests.Repositories
         [TearDown]
         public void Cleanup()
         {
+
             foreach (Injury entity in ctx.Injuries)
             {
                 ctx.Injuries.Remove(entity);
@@ -68,56 +71,51 @@ namespace NbaStats.Data.Tests.Repositories
         }
 
         [Test]
-        public void TestInjuryExits()
+        public void TestGetInjury()
         {
             Injury injury = new Injury()
             {
                 Id = 1,
                 PlayerId = 1,
-                ScratchDate = new DateTime(2020, 1, 17)
-            };
-            repo.Insert(injury);
-
-            Assert.IsTrue(repo.Exists(injury));
-        }
-
-        [Test]
-        public void TestInjuryNotExists()
-        {
-            Injury injury = new Injury()
-            {
-                Id = 1,
-                PlayerId = 1,
-                ScratchDate = new DateTime(2020, 1, 17)
+                ScratchDate = DateTime.Now
             };
             repo.Insert(injury);
 
             Injury injury2 = new Injury()
             {
-                Id = 1,
+                Id = 2,
                 PlayerId = 3,
-                ScratchDate = new DateTime(2020, 1, 17)
+                ScratchDate = DateTime.Now
             };
+            repo.Insert(injury2);
 
-            Assert.IsFalse(repo.Exists(injury2));
+            Assert.IsNotNull(repo.GetInjury(2));
         }
 
         [Test]
-        public void TestPlayerExists()
+        public void TestGetInjuries()
         {
-            Player player = new Player()
+            Injury injury = new Injury()
             {
                 Id = 1,
-                PlayerCode = "MAllison",
-                PlayerName = "Marc Allison"
+                PlayerId = 1,
+                ScratchDate = DateTime.Now
             };
-            repo.Insert(player);
-            Assert.IsTrue(repo.Exists(player));
+            repo.Insert(injury);
 
+            Injury injury2 = new Injury()
+            {
+                Id = 2,
+                PlayerId = 3,
+                ScratchDate = DateTime.Now
+            };
+            repo.Insert(injury2);
+
+            Assert.AreEqual(2, repo.GetInjuries().Count());
         }
 
         [Test]
-        public void TestPlayerNotExists()
+        public void TestGetPlayer()
         {
             Player player = new Player()
             {
@@ -129,21 +127,45 @@ namespace NbaStats.Data.Tests.Repositories
 
             Player player2 = new Player()
             {
-                Id = 1,
-                PlayerCode = "MAllisonJr",
-                PlayerName = "Marc Allison Jr"
+                Id = 2,
+                PlayerCode = "JSmith",
+                PlayerName = "Jeff Smith Jr"
             };
-            Assert.IsFalse(repo.Exists(player2));
+            repo.Insert(player2);
+
+            Assert.IsNotNull(repo.GetPlayer(2));
         }
 
         [Test]
-        public void TestPlayerStatExists()
+        public void TestGetPlayers()
+        {
+            Player player = new Player()
+            {
+                Id = 1,
+                PlayerCode = "MAllison",
+                PlayerName = "Marc Allison"
+            };
+            repo.Insert(player);
+
+            Player player2 = new Player()
+            {
+                Id = 2,
+                PlayerCode = "JSmith",
+                PlayerName = "Jeff Smith Jr"
+            };
+            repo.Insert(player2);
+
+            Assert.AreEqual(2, repo.GetPlayers().Count());
+        }
+
+        [Test]
+        public void TestGetPlayerStat()
         {
             PlayerStat stat = new PlayerStat()
             {
                 Id = 1,
                 PlayerId = 1,
-                ScheduleId = 4,
+                ScheduleId = 3,
                 Assists = 5,
                 PointDifferential = -12,
                 Points = 25,
@@ -161,43 +183,44 @@ namespace NbaStats.Data.Tests.Repositories
                 GameMinutes = 18,
                 Steals = 4
             };
+
             repo.Insert(stat);
-
-            Assert.IsTrue(repo.Exists(stat));
-        }
-
-        [Test]
-        public void TestPlayerStatNotExists()
-        {
-            PlayerStat stat = new PlayerStat()
-            {
-                Id = 1,
-                PlayerId = 1,
-                ScheduleId = 4,
-                Assists = 5,
-                PointDifferential = -12,
-                Points = 25,
-                FGPercentage = 0.25,
-                ThreePercentage = 0.15,
-                ThreeCompleted = 3,
-                ThreeTaken = 15,
-                Turnovers = 3,
-                FGTaken = 20,
-                FGCompleted = 5,
-                Fouls = 2,
-                Blocks = 5,
-                DefensiveRebound = 3,
-                OffensiveRebound = 3,
-                GameMinutes = 18,
-                Steals = 4
-            };
-            repo.Insert(stat);
-
             PlayerStat stat2 = new PlayerStat()
             {
+                Id = 2,
+                PlayerId = 1,
+                ScheduleId = 5,
+                Assists = 5,
+                PointDifferential = -12,
+                Points = 25,
+                FGPercentage = 0.25,
+                ThreePercentage = 0.15,
+                ThreeCompleted = 3,
+                ThreeTaken = 15,
+                Turnovers = 3,
+                FGTaken = 50,
+                FGCompleted = 5,
+                Fouls = 2,
+                Blocks = 5,
+                DefensiveRebound = 3,
+                OffensiveRebound = 3,
+                GameMinutes = 18,
+                Steals = 4
+            };
+            repo.Insert(stat2);
+
+            Assert.IsNotNull(repo.GetPlayerStat(2));
+
+        }
+
+        [Test]
+        public void TestGetPlayerStats()
+        {
+            PlayerStat stat = new PlayerStat()
+            {
                 Id = 1,
                 PlayerId = 1,
-                ScheduleId = 2,
+                ScheduleId = 3,
                 Assists = 5,
                 PointDifferential = -12,
                 Points = 25,
@@ -216,25 +239,35 @@ namespace NbaStats.Data.Tests.Repositories
                 Steals = 4
             };
 
-            Assert.IsFalse(repo.Exists(stat2));
-        }
-
-        [Test]
-        public void TestRosterEntyExists()
-        {
-            RosterEntry entry = new RosterEntry()
+            repo.Insert(stat);
+            PlayerStat stat2 = new PlayerStat()
             {
-                Id = 1,
-                PlayerId = 3,
-                TeamId = 4
+                Id = 2,
+                PlayerId = 1,
+                ScheduleId = 5,
+                Assists = 5,
+                PointDifferential = -12,
+                Points = 25,
+                FGPercentage = 0.25,
+                ThreePercentage = 0.15,
+                ThreeCompleted = 3,
+                ThreeTaken = 15,
+                Turnovers = 3,
+                FGTaken = 50,
+                FGCompleted = 5,
+                Fouls = 2,
+                Blocks = 5,
+                DefensiveRebound = 3,
+                OffensiveRebound = 3,
+                GameMinutes = 18,
+                Steals = 4
             };
-            repo.Insert(entry);
-
-            Assert.IsTrue(repo.Exists(entry));
+            repo.Insert(stat2);
+            Assert.AreEqual(2, repo.GetPlayerStats().Count());
         }
 
         [Test]
-        public void TestRosterEntryNotExists()
+        public void TestGetRosterEntry()
         {
             RosterEntry entry = new RosterEntry()
             {
@@ -246,15 +279,38 @@ namespace NbaStats.Data.Tests.Repositories
 
             RosterEntry entry2 = new RosterEntry()
             {
-                Id = 1,
-                PlayerId = 3,
+                Id = 2,
+                PlayerId = 4,
                 TeamId = 5
             };
-            Assert.IsFalse(repo.Exists(entry2));
+            repo.Insert(entry2);
+
+            Assert.IsNotNull(repo.GetRosterEntry(2));
         }
 
         [Test]
-        public void TestScheduleEntryExists()
+        public void TestGetRosterEntries()
+        {
+            RosterEntry entry = new RosterEntry()
+            {
+                Id = 1,
+                PlayerId = 3,
+                TeamId = 4
+            };
+            repo.Insert(entry);
+
+            RosterEntry entry2 = new RosterEntry()
+            {
+                Id = 2,
+                PlayerId = 4,
+                TeamId = 5
+            };
+            repo.Insert(entry2);
+            Assert.AreEqual(2, repo.GetRosterEntries().Count());
+        }
+
+        [Test]
+        public void TestGetScheduleEntry()
         {
             ScheduleEntry entry = new ScheduleEntry()
             {
@@ -265,48 +321,43 @@ namespace NbaStats.Data.Tests.Repositories
             };
             repo.Insert(entry);
 
-            Assert.IsTrue(repo.Exists(entry));
+            ScheduleEntry entry2 = new ScheduleEntry()
+            {
+                Id = 2,
+                AwayTeamId = 5,
+                GameDate = new DateTime(2020, 1, 12),
+                HomeTeamId = 2
+            };
+            repo.Insert(entry2);
+
+            Assert.IsNotNull(repo.GetScheduleEntry(2));
         }
 
         [Test]
-        public void TestScheduleEntryNotExists()
+        public void TestGetScheduleEntries()
         {
             ScheduleEntry entry = new ScheduleEntry()
             {
                 Id = 1,
                 AwayTeamId = 3,
-                GameDate = new DateTime(2020, 1, 17),
+                GameDate = DateTime.Now,
                 HomeTeamId = 2
             };
             repo.Insert(entry);
 
             ScheduleEntry entry2 = new ScheduleEntry()
             {
-                Id = 1,
-                AwayTeamId = 3,
-                GameDate = new DateTime(2020, 1, 18),
+                Id = 2,
+                AwayTeamId = 5,
+                GameDate = new DateTime(2020, 1, 12),
                 HomeTeamId = 2
             };
-
-            Assert.IsFalse(repo.Exists(entry2));
+            repo.Insert(entry2);
+            Assert.AreEqual(2, repo.GetScheduleEntries().Count());
         }
 
         [Test]
-        public void TestTeamExists()
-        {
-            Team team = new Team()
-            {
-                Id = 1,
-                TeamCode = "MIN",
-                TeamName = "Minnesota Wild"
-            };
-            repo.Insert(team);
-            Assert.IsTrue(repo.Exists(team));
-
-        }
-
-        [Test]
-        public void TestTeamNoExists()
+        public void TestGetTeam()
         {
             Team team = new Team()
             {
@@ -318,53 +369,43 @@ namespace NbaStats.Data.Tests.Repositories
 
             Team team2 = new Team()
             {
+                Id = 2,
+                TeamCode = "LA",
+                TeamName = "LA Raiders"
+            };
+            repo.Insert(team2);
+            Assert.IsNotNull(repo.GetTeam(2));
+        }
+
+        [Test]
+        public void TestGetTeams()
+        {
+            Team team = new Team()
+            {
                 Id = 1,
-                TeamCode = "WIN",
+                TeamCode = "MIN",
                 TeamName = "Minnesota Wild"
             };
-            Assert.IsFalse(repo.Exists(team2));
-        }
+            repo.Insert(team);
 
-        [Test]
-        public void TestTeamStatExists() 
-        {
-            TeamStat stat = new TeamStat()
+            Team team2 = new Team()
             {
-                Id = 1,
-                OpponentId = 3,
-                TeamId = 2,
-                ScheduleId = 4,
-                Assits = 3,
-                Blocks = 6,
-                DefensiveRebound = 15,
-                FGCompleted = 35,
-                FGPercentage = 0.6,
-                FGTaken = 50,
-                Fouls = 15,
-                FreeThrowPercentage = 0.33,
-                FreeThrowsCompleted = 9,
-                FreeThrowsTaken = 3,
-                OffensiveRebound = 25,
-                Steals = 15,
-                ThreeCompleted = 30,
-                ThreePercentage = 0.33,
-                ThreeTaken = 10,
-                TurnOvers = 20
+                Id = 2,
+                TeamCode = "LA",
+                TeamName = "LA Raiders"
             };
-            repo.Insert(stat);
-
-            Assert.IsTrue(repo.Exists(stat));
+            repo.Insert(team2);
+            Assert.AreEqual(2, repo.GetTeams().Count());
         }
 
         [Test]
-        public void TestTeamStatNotExists()
+        public void TestGetTeamStat()
         {
             TeamStat stat = new TeamStat()
             {
                 Id = 1,
                 OpponentId = 3,
                 TeamId = 2,
-                ScheduleId = 4,
                 Assits = 3,
                 Blocks = 6,
                 DefensiveRebound = 15,
@@ -380,16 +421,47 @@ namespace NbaStats.Data.Tests.Repositories
                 ThreeCompleted = 30,
                 ThreePercentage = 0.33,
                 ThreeTaken = 10,
-                TurnOvers = 20
+                TurnOvers = 20,
+                ScheduleId = 4
             };
             repo.Insert(stat);
 
             TeamStat stat2 = new TeamStat()
             {
+                Id = 2,
+                OpponentId = 5,
+                TeamId = 4,
+                Assits = 3,
+                Blocks = 6,
+                DefensiveRebound = 15,
+                FGCompleted = 35,
+                FGPercentage = 0.6,
+                FGTaken = 50,
+                Fouls = 15,
+                FreeThrowPercentage = 0.33,
+                FreeThrowsCompleted = 11,
+                FreeThrowsTaken = 6,
+                OffensiveRebound = 25,
+                Steals = 15,
+                ThreeCompleted = 30,
+                ThreePercentage = 0.33,
+                ThreeTaken = 10,
+                TurnOvers = 20,
+                ScheduleId = 2
+            };
+            repo.Insert(stat2);
+
+            Assert.IsNotNull(repo.GetTeamStat(2));
+        }
+
+        [Test]
+        public void TestGetTeamStats()
+        {
+            TeamStat stat = new TeamStat()
+            {
                 Id = 1,
                 OpponentId = 3,
                 TeamId = 2,
-                ScheduleId = 3,
                 Assits = 3,
                 Blocks = 6,
                 DefensiveRebound = 15,
@@ -405,28 +477,40 @@ namespace NbaStats.Data.Tests.Repositories
                 ThreeCompleted = 30,
                 ThreePercentage = 0.33,
                 ThreeTaken = 10,
-                TurnOvers = 20
+                TurnOvers = 20,
+                ScheduleId = 4
             };
+            repo.Insert(stat);
 
-            Assert.IsFalse(repo.Exists(stat2));
-        }
-
-        [Test]
-        public void TestTransactionExists()
-        {
-            Transaction transaction = new Transaction()
+            TeamStat stat2 = new TeamStat()
             {
-                Id = 1,
-                NewTeamId = 4,
-                OldTeamId = 6,
-                PlayerId = 3
+                Id = 2,
+                OpponentId = 5,
+                TeamId = 4,
+                Assits = 3,
+                Blocks = 6,
+                DefensiveRebound = 15,
+                FGCompleted = 35,
+                FGPercentage = 0.6,
+                FGTaken = 50,
+                Fouls = 15,
+                FreeThrowPercentage = 0.33,
+                FreeThrowsCompleted = 11,
+                FreeThrowsTaken = 6,
+                OffensiveRebound = 25,
+                Steals = 15,
+                ThreeCompleted = 30,
+                ThreePercentage = 0.33,
+                ThreeTaken = 10,
+                TurnOvers = 20,
+                ScheduleId = 2
             };
-            repo.Insert(transaction);
-            Assert.IsTrue(repo.Exists(transaction));
+            repo.Insert(stat2);
+            Assert.AreEqual(2, repo.GetTeamStats().Count());
         }
 
         [Test]
-        public void TestTransactionNotExists()
+        public void TestGetTransaction()
         {
             Transaction transaction = new Transaction()
             {
@@ -439,14 +523,37 @@ namespace NbaStats.Data.Tests.Repositories
 
             Transaction transaction2 = new Transaction()
             {
-                Id = 1,
-                NewTeamId = 4,
-                OldTeamId = 7,
+                Id = 2,
+                NewTeamId = 9,
+                OldTeamId = 4,
                 PlayerId = 3
             };
+            repo.Insert(transaction2);
 
-            Assert.IsFalse(repo.Exists(transaction2));
+            Assert.IsNotNull(repo.GetTransaction(2));
         }
 
+        [Test]
+        public void TestGetTransactions()
+        {
+            Transaction transaction = new Transaction()
+            {
+                Id = 1,
+                NewTeamId = 4,
+                OldTeamId = 6,
+                PlayerId = 3
+            };
+            repo.Insert(transaction);
+
+            Transaction transaction2 = new Transaction()
+            {
+                Id = 2,
+                NewTeamId = 9,
+                OldTeamId = 4,
+                PlayerId = 3
+            };
+            repo.Insert(transaction2);
+            Assert.AreEqual(2, repo.GetTransactions().Count());
+        }
     }
 }
