@@ -37,42 +37,42 @@ namespace NbaStats.Data.Repositories
 
         public void Delete(Injury injury)
         {
-            throw new NotImplementedException();
+            base.Delete(injury);
         }
 
         public void Delete(Player player)
         {
-            throw new NotImplementedException();
+            base.Delete(player);
         }
 
         public void Delete(PlayerStat playerStat)
         {
-            throw new NotImplementedException();
+            base.Delete(playerStat);
         }
 
         public void Delete(RosterEntry rosterEntry)
         {
-            throw new NotImplementedException();
+            base.Delete(rosterEntry);
         }
 
         public void Delete(ScheduleEntry scheduleEntry)
         {
-            throw new NotImplementedException();
+            base.Delete(scheduleEntry);
         }
 
         public void Delete(Team team)
         {
-            throw new NotImplementedException();
+            base.Delete(team);
         }
 
         public void Delete(TeamStat teamStat)
         {
-            throw new NotImplementedException();
+            base.Delete(teamStat);
         }
 
         public void Delete(Transaction transaction)
         {
-            throw new NotImplementedException();
+            base.Delete(transaction);
         }
 
         public bool Exists(Injury injury)
