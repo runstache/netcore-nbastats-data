@@ -67,7 +67,7 @@ namespace NbaStats.Data.Engines
 
         public Player Save(Player entity)
         {
-            if (entity.Id > 0 && Exists(entity))
+            if (entity.Id > 0)
             {
                 return repo.Update(entity);
             }

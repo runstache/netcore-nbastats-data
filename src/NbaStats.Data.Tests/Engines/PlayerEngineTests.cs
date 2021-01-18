@@ -46,6 +46,7 @@ namespace NbaStats.Data.Tests.Engines
         [Test]
         public void TestSavePlayer()
         {
+            player.Id = 0;
             engine.Save(player);
             Assert.AreEqual(1, ctx.Players.Count());
 
@@ -55,7 +56,9 @@ namespace NbaStats.Data.Tests.Engines
         [Test]
         public void TestUpdatePlayer()
         {
-            engine.Save(player);
+            ctx.Players.Add(player);
+            ctx.SaveChanges();
+
             Player player2 = new Player()
             {
                 Id = 1,
@@ -71,7 +74,8 @@ namespace NbaStats.Data.Tests.Engines
         [Test]
         public void TestUpdatePlayerNoId()
         {
-            engine.Save(player);
+            ctx.Players.Add(player);
+            ctx.SaveChanges();
             Player player2 = new Player()
             {
                 Id = 0,
@@ -88,14 +92,16 @@ namespace NbaStats.Data.Tests.Engines
         [Test]
         public void TestLoad()
         {
-            engine.Save(player);
+            ctx.Players.Add(player);
+            ctx.SaveChanges();
             Assert.IsNotNull(engine.Load(1));
         }
 
         [Test]
         public void TestLoadAll()
         {
-            engine.Save(player);
+            ctx.Players.Add(player);
+            ctx.SaveChanges();
             Assert.AreEqual(1, engine.LoadAll().Count());
 
         }
@@ -103,7 +109,8 @@ namespace NbaStats.Data.Tests.Engines
         [Test]
         public void TestQuery()
         {
-            engine.Save(player);
+            ctx.Players.Add(player);
+            ctx.SaveChanges();
             Expression<Func<Player, bool>> expression = c => c.PlayerCode == "JSMITH";
 
             Assert.AreEqual(1, engine.Query(expression).Count());
@@ -112,7 +119,8 @@ namespace NbaStats.Data.Tests.Engines
         [Test]
         public void TestDelete()
         {
-            engine.Save(player);
+            ctx.Players.Add(player);
+            ctx.SaveChanges();
             Assert.IsNotNull(engine.Load(1));
 
             engine.Delete(player);
@@ -122,7 +130,8 @@ namespace NbaStats.Data.Tests.Engines
         [Test]
         public void TestExists()
         {
-            engine.Save(player);
+            ctx.Players.Add(player);
+            ctx.SaveChanges();
             Assert.IsTrue(engine.Exists(player));
         }
     }
