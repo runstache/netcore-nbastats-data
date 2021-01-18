@@ -247,7 +247,7 @@ namespace NbaStats.Data.Tests.Repositories
             RosterEntry entry2 = new RosterEntry()
             {
                 Id = 1,
-                PlayerId = 3,
+                PlayerId = 4,
                 TeamId = 5
             };
             Assert.IsFalse(repo.Exists(entry2));

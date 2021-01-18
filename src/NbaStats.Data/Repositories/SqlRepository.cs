@@ -95,7 +95,7 @@ namespace NbaStats.Data.Repositories
 
         public bool Exists(RosterEntry rosterEntry)
         {
-            Expression<Func<RosterEntry, bool>> doesExist = c => c.PlayerId == rosterEntry.PlayerId && c.TeamId == rosterEntry.TeamId;
+            Expression<Func<RosterEntry, bool>> doesExist = c => c.PlayerId == rosterEntry.PlayerId;
             return Query(doesExist).Count() > 0;
         }
 
