@@ -113,7 +113,7 @@ namespace NbaStats.Data.Repositories
 
         public bool Exists(TeamStat teamStat)
         {
-            Expression<Func<TeamStat, bool>> doesExist = c => c.TeamId == teamStat.TeamId && c.ScheduleId == teamStat.ScheduleId && c.OpponentId == teamStat.OpponentId;
+            Expression<Func<TeamStat, bool>> doesExist = c => c.TeamId == teamStat.TeamId && c.ScheduleId == teamStat.ScheduleId;
             return Query(doesExist).Count() > 0;
         }
 
