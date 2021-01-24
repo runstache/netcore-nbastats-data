@@ -126,6 +126,7 @@ namespace NbaStats.Data.Tests.Engines
                 PlayerId = 1,
                 ScratchDate = new DateTime(2020, 1, 18)
             };
+            Assert.IsTrue(engine.Exists(injury2));
         }
     }
 }
