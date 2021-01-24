@@ -66,6 +66,13 @@ namespace NbaStats.Data.Repositories
         /// <returns>Resulting Transaction</returns>
         Transaction Insert(Transaction transaction);
 
+        /// <summary>
+        /// Inserts a Box Score Entry to the Database.
+        /// </summary>
+        /// <param name="entry">Box Score Entry</param>
+        /// <returns>Resulting Box Score Entry</returns>
+        BoxScoreEntry Insert(BoxScoreEntry entry);
+
         #endregion
 
         #region Update
@@ -125,6 +132,13 @@ namespace NbaStats.Data.Repositories
         /// <param name="transaction">Transaction to Update</param>
         /// <returns>Updated Transaction</returns>
         Transaction Update(Transaction transaction);
+
+        /// <summary>
+        /// Updates a Box Score Entry in the Database.
+        /// </summary>
+        /// <param name="entry">Updated Boxscore Entry</param>
+        /// <returns></returns>
+        BoxScoreEntry Update(BoxScoreEntry entry);
 
         #endregion
 
@@ -234,6 +248,19 @@ namespace NbaStats.Data.Repositories
         /// <returns>Queryable of Transactions</returns>
         IQueryable<Transaction> GetTransactions();
 
+        /// <summary>
+        /// Retrieves the Box Score Entry from the Database.
+        /// </summary>
+        /// <param name="id">Primary Id</param>
+        /// <returns>Box Score Entry</returns>
+        BoxScoreEntry GetBoxScoreEntry(long id);
+
+        /// <summary>
+        /// Retrieves All the Box Score Entries from the Database.
+        /// </summary>
+        /// <returns>Queryable of Box Score Entries</returns>
+        IQueryable<BoxScoreEntry> GetBoxScoreEntries();
+
 
         #endregion
 
@@ -286,6 +313,12 @@ namespace NbaStats.Data.Repositories
         /// </summary>
         /// <param name="transaction">Transaction</param>
         void Delete(Transaction transaction);
+
+        /// <summary>
+        /// Deletes a Box Score Entrye from the Database.
+        /// </summary>
+        /// <param name="entry">Box Score Entry</param>
+        void Delete(BoxScoreEntry entry);
 
         #endregion
 
@@ -346,6 +379,13 @@ namespace NbaStats.Data.Repositories
         /// <param name="transaction">Transaction</param>
         /// <returns>bool</returns>
         bool Exists(Transaction transaction);
+
+        /// <summary>
+        /// Determins if a Box Score Entry exists in the Database.
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <returns></returns>
+        bool Exists(BoxScoreEntry entry);
 
         #endregion
 

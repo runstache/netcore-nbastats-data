@@ -65,6 +65,11 @@ namespace NbaStats.Data.Tests.Repositories
                 ctx.Transactions.Remove(entity);
             }
 
+            foreach(BoxScoreEntry entity in ctx.BoxScoreEntries)
+            {
+                ctx.BoxScoreEntries.Remove(entity);
+            }
+
             ctx.SaveChanges();
         }
 
@@ -223,6 +228,27 @@ namespace NbaStats.Data.Tests.Repositories
             repo.Delete(transaction);
 
             Assert.AreEqual(0, ctx.Transactions.Count());
+        }
+
+        [Test]
+        public void TestDeleteBoxScoreEntry()
+        {
+            BoxScoreEntry entry = new BoxScoreEntry()
+            {
+                Id = 1,
+                Ot = 0,
+                Quarter1 = 15,
+                Quarter2 = 20,
+                Quarter3 = 15,
+                Quarter4 = 20,
+                TeamId = 2,
+                Total = 70,
+                ScheduleId = 3
+            };
+            repo.Insert(entry);
+            repo.Delete(entry);
+
+            Assert.AreEqual(0, ctx.BoxScoreEntries.Count());
         }
 
     }

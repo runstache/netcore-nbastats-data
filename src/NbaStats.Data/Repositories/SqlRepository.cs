@@ -75,6 +75,11 @@ namespace NbaStats.Data.Repositories
             base.Delete(transaction);
         }
 
+        public void Delete(BoxScoreEntry entry)
+        {
+            base.Delete(entry);
+        }
+
         public bool Exists(Injury injury)
         {
             Expression<Func<Injury, bool>> doesExist = c => c.PlayerId == injury.PlayerId && c.ScratchDate == injury.ScratchDate;
@@ -121,6 +126,23 @@ namespace NbaStats.Data.Repositories
         {
             Expression<Func<Transaction, bool>> doesExist = c => c.PlayerId == transaction.PlayerId && c.NewTeamId == transaction.NewTeamId && c.OldTeamId == transaction.OldTeamId;
             return Query(doesExist).Count() > 0;
+        }
+
+        public bool Exists(BoxScoreEntry entry)
+        {
+            Expression<Func<BoxScoreEntry, bool>> doesExist = c => c.ScheduleId == entry.ScheduleId && c.TeamId == entry.TeamId;
+            return Query(doesExist).Count() > 0;
+        }
+
+        public IQueryable<BoxScoreEntry> GetBoxScoreEntries()
+        {
+            return Context.BoxScoreEntries;
+        }
+
+        public BoxScoreEntry GetBoxScoreEntry(long id)
+        {
+            Expression<Func<BoxScoreEntry, bool>> byId = c => c.Id == id;
+            return Query(byId).FirstOrDefault();
         }
 
         public IQueryable<Injury> GetInjuries()
@@ -252,6 +274,11 @@ namespace NbaStats.Data.Repositories
             return Add(transaction);
         }
 
+        public BoxScoreEntry Insert(BoxScoreEntry entry)
+        {
+            return Add(entry);
+        }
+
         public Injury Update(Injury injury)
         {
             return base.Update(injury);
@@ -290,6 +317,11 @@ namespace NbaStats.Data.Repositories
         public Transaction Update(Transaction transaction)
         {
             return base.Update(transaction);
+        }
+
+        public BoxScoreEntry Update(BoxScoreEntry entry)
+        {
+            return base.Update(entry);
         }
     }
 }
