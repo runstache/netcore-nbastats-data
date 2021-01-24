@@ -26,6 +26,7 @@ namespace NbaStats.Data.Context
         public DbSet<Team> Teams { get; set; }
         public DbSet<TeamStat> TeamStats { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<BoxScoreEntry> BoxScoreEntries { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -53,6 +54,7 @@ namespace NbaStats.Data.Context
             modelBuilder.ApplyConfiguration(new TeamConfiguration());
             modelBuilder.ApplyConfiguration(new TeamStatConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
+            modelBuilder.ApplyConfiguration(new BoxScoreEntryConfiguration());
         }
     }
 }

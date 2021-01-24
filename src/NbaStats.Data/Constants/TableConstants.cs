@@ -14,5 +14,6 @@ namespace NbaStats.Data.Constants
         public const string TeamsTable = "tblTeams";
         public const string TeamStatsTable = "tblTeamStats";
         public const string TransactionsTable = "tblTransactions";
+        public const string BoxScroteTable = "tblBoxScore";
     }
 }
