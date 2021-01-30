@@ -27,4 +27,4 @@ jobs:
       uses: rohith/publish-nuget@v2
       with:
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-        PROJECT_FILEPATH: src/NbaStats.Data/NbaStats.Data.csproj
+        PROJECT_FILE_PATH: src/NbaStats.Data/NbaStats.Data.csproj
