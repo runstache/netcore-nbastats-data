@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Larry Shields</Authors>
+    <Description>Entity Framework Library for interacting with the Nba Stats Database</Description>
+    <PackageId>LSWebWorld.NbaStats.Data</PackageId>
+    <Product>LSWebWorld.NbaStats.Data</Product>
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
