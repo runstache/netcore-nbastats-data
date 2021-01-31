@@ -25,5 +25,8 @@ namespace NbaStats.Data.DataObjects
         public int Fouls { get; set; }
         public int Points { get; set; }
         public int PointDifferential { get; set; }
+        public int FTTaken { get; set; }
+        public int FTCompleted { get; set; }
+        public double FTPercentage { get; set; }
     }
 }
