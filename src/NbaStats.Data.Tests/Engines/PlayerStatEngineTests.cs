@@ -44,7 +44,10 @@ namespace NbaStats.Data.Tests.Engines
                 DefensiveRebound = 3,
                 OffensiveRebound = 3,
                 GameMinutes = 18,
-                Steals = 4
+                Steals = 4,
+                FTCompleted = 2,
+                FTTaken = 1,
+                FTPercentage = 0.5
             };
         }
 
@@ -91,7 +94,10 @@ namespace NbaStats.Data.Tests.Engines
                 DefensiveRebound = 3,
                 OffensiveRebound = 3,
                 GameMinutes = 18,
-                Steals = 4
+                Steals = 4,
+                FTCompleted = 2,
+                FTTaken = 1,
+                FTPercentage = 0.5
             };
             engine.Save(stat2);
 
@@ -125,7 +131,10 @@ namespace NbaStats.Data.Tests.Engines
                 DefensiveRebound = 3,
                 OffensiveRebound = 3,
                 GameMinutes = 18,
-                Steals = 4
+                Steals = 4,
+                FTCompleted = 2,
+                FTTaken = 1,
+                FTPercentage = 0.5
             };
             engine.Save(stat2);
 

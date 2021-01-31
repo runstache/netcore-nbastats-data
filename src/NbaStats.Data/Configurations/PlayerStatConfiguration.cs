@@ -30,6 +30,9 @@ namespace NbaStats.Data.Configurations
             builder.Property(c => c.Turnovers).IsRequired().HasColumnName("Turnovers").HasColumnType("int");
             builder.Property(c => c.ThreePercentage).IsRequired().HasColumnName("ThreePercentage").HasColumnType("float");
             builder.Property(c => c.ScheduleId).IsRequired().HasColumnName("ScheduleId").HasColumnType("bigint");
+            builder.Property(c => c.FTCompleted).IsRequired().HasColumnName("FTCompleted").HasColumnType("int");
+            builder.Property(c => c.FTPercentage).IsRequired().HasColumnName("FTPercentage").HasColumnType("float");
+            builder.Property(c => c.FTTaken).IsRequired().HasColumnName("FTTaken").HasColumnType("int");
         }
     }
 }

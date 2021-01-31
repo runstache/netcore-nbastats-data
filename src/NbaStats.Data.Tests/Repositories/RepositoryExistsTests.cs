@@ -164,7 +164,10 @@ namespace NbaStats.Data.Tests.Repositories
                 DefensiveRebound = 3,
                 OffensiveRebound = 3,
                 GameMinutes = 18,
-                Steals = 4
+                Steals = 4,
+                FTCompleted = 2,
+                FTTaken = 1,
+                FTPercentage = 0.5
             };
             repo.Insert(stat);
 
@@ -194,7 +197,10 @@ namespace NbaStats.Data.Tests.Repositories
                 DefensiveRebound = 3,
                 OffensiveRebound = 3,
                 GameMinutes = 18,
-                Steals = 4
+                Steals = 4,
+                FTCompleted = 2,
+                FTTaken = 1,
+                FTPercentage = 0.5
             };
             repo.Insert(stat);
 
@@ -218,7 +224,10 @@ namespace NbaStats.Data.Tests.Repositories
                 DefensiveRebound = 3,
                 OffensiveRebound = 3,
                 GameMinutes = 18,
-                Steals = 4
+                Steals = 4,
+                FTCompleted = 2,
+                FTTaken = 1,
+                FTPercentage = 0.5
             };
 
             Assert.IsFalse(repo.Exists(stat2));
