@@ -13,7 +13,7 @@ namespace NbaStats.Data.Configurations
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Assits).IsRequired().HasColumnName("Assists").HasColumnType("int");
             builder.Property(c => c.Blocks).IsRequired().HasColumnName("Blocks").HasColumnType("int");
-            builder.Property(c => c.DefensiveRebound).IsRequired().HasColumnName("DefensiveRebound").HasColumnType("int");
+            builder.Property(c => c.DefensiveRebound).IsRequired().HasColumnName("DefensiveRebounds").HasColumnType("int");
             builder.Property(c => c.FGCompleted).IsRequired().HasColumnName("FGCompleted").HasColumnType("int");
             builder.Property(c => c.FGPercentage).IsRequired().HasColumnName("FGPercentage").HasColumnType("float");
             builder.Property(c => c.FGTaken).IsRequired().HasColumnName("FGTaken").HasColumnType("int");
@@ -22,7 +22,7 @@ namespace NbaStats.Data.Configurations
             builder.Property(c => c.FreeThrowsCompleted).IsRequired().HasColumnName("FreeThrowsCompleted").HasColumnType("int");
             builder.Property(c => c.FreeThrowsTaken).IsRequired().HasColumnName("FreeThrowsTaken").HasColumnType("int");
             builder.Property(c => c.Id).IsRequired().HasColumnName("Id").HasColumnType("bigint").UseIdentityColumn();
-            builder.Property(c => c.OffensiveRebound).IsRequired().HasColumnName("OffensiveRebound").HasColumnType("int");
+            builder.Property(c => c.OffensiveRebound).IsRequired().HasColumnName("OffensiveRebounds").HasColumnType("int");
             builder.Property(c => c.OpponentId).IsRequired().HasColumnName("OpponentId").HasColumnType("int");
             builder.Property(c => c.Steals).IsRequired().HasColumnName("Steals").HasColumnType("int");
             builder.Property(c => c.TeamId).IsRequired().HasColumnName("TeamId").HasColumnType("int");
