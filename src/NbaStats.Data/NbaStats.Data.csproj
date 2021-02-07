@@ -6,8 +6,8 @@
     <Description>Entity Framework Library for interacting with the Nba Stats Database</Description>
     <PackageId>LSWebWorld.NbaStats.Data</PackageId>
     <Product>LSWebWorld.NbaStats.Data</Product>
-    <Version>1.0.2</Version>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <Version>1.0.4</Version>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
     <RepositoryUrl>https://github.com/runstache/netcore-nbastats-data</RepositoryUrl>
   </PropertyGroup>
 

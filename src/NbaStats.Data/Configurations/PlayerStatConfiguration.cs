@@ -20,7 +20,7 @@ namespace NbaStats.Data.Configurations
             builder.Property(c => c.Fouls).IsRequired().HasColumnName("Fouls").HasColumnType("int");
             builder.Property(c => c.GameMinutes).IsRequired().HasColumnName("GameMinutes").HasColumnType("int");
             builder.Property(c => c.Id).IsRequired().HasColumnName("Id").HasColumnType("bigint").UseIdentityColumn();
-            builder.Property(c => c.OffensiveRebound).IsRequired().HasColumnName("OffensiveRebound").HasColumnType("int");
+            builder.Property(c => c.OffensiveRebound).IsRequired().HasColumnName("OffensiveRebounds").HasColumnType("int");
             builder.Property(c => c.PlayerId).IsRequired().HasColumnName("PlayerId").HasColumnType("bigint");
             builder.Property(c => c.PointDifferential).IsRequired().HasColumnName("PointDifferential").HasColumnType("int");
             builder.Property(c => c.Points).IsRequired().HasColumnName("Points").HasColumnType("int");
