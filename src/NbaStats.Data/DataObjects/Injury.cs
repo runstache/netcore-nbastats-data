@@ -8,6 +8,8 @@ namespace NbaStats.Data.DataObjects
     {
         public long Id { get; set; }
         public long PlayerId { get; set; }
+
+        public string InjuryStatus { get; set; }
         public DateTime ScratchDate { get; set; }
     }
 }
