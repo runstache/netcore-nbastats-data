@@ -13,6 +13,11 @@ namespace NbaStats.Data.Context
             this.connectionString = connectionString;
         }
 
+        public SqlContext(DbContextOptions options) : base(options)
+        {
+            useInMemory = false;
+        }
+
         public SqlContext()
         {
             useInMemory = true;
