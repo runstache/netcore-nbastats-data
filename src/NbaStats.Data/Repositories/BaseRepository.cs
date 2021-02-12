@@ -62,9 +62,9 @@ namespace NbaStats.Data.Repositories
 
             if (!entity.Equals(original))
             {
-                ctx.Entry(original).CurrentValues.SetValues(entity);
-                ctx.SaveChanges();
+                ctx.Entry(original).CurrentValues.SetValues(entity);                
             }
+            ctx.SaveChanges();
             return ctx.Entry(entity).Entity;
         }      
 
